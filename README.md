@@ -42,6 +42,11 @@ If you'd like to output video:
 
     brew install ffmpeg
 
+### TTS (optional)
+
+If you like to output video. Text to speech:
+
+    docker run -it -p 5002:5002 synesthesiam/mozillatts:en
 
 ## Install
 
