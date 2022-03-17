@@ -50,7 +50,7 @@ If you like to output video. Text to speech:
 
 ## Install
 
-    pip install git+...
+    pip install git+https://github.com/allcaps/wagtail-guide#egg=wagtail_guide
 
     INSTALLED_APPS = [
         "wagtail_guide",
@@ -72,7 +72,8 @@ To convert markdown to documentation, I'd suggest using MkDocs. In your project 
 
     pip install mkdocs
     mkdocs new .
-    # Add the pages https://www.mkdocs.org/getting-started/#adding-pages
+    # Add pages to mkdocs.yml `nav` section.
+    # Ref: https://www.mkdocs.org/getting-started/#adding-pages
     mkdocs serve
 
 
