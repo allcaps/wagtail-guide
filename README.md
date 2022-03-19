@@ -61,12 +61,11 @@ If you like to output video. Text to speech:
 
 Foreground mode (chromedriver required)
 
-    python manage.py build_guide
+    python manage.py buildguide
 
 Headless mode (Selenium Docker required)
 
-    SELENIUM_REMOTE_URL=YOUR_HOST_IP python manage.py build_guide --headless
-
+    SELENIUM_REMOTE_URL=YOUR_HOST_IP python manage.py buildguide --headless
 
 To convert markdown to documentation, I'd suggest using MkDocs. In your project root:
 
