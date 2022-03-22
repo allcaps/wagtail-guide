@@ -2,22 +2,24 @@ import os
 import tempfile
 
 import requests
+from moviepy.audio.fx.all import audio_fadeout, volumex
 from moviepy.editor import (
     AudioClip,
     AudioFileClip,
     ColorClip,
-    TextClip,
+    CompositeAudioClip,
     CompositeVideoClip,
     ImageClip,
+    TextClip,
     VideoFileClip,
     concatenate_audioclips,
     concatenate_videoclips,
 )
-
 from mutagen.wave import WAVE
 
-from .mixins import ImageMixin
 from wagtail_guide.conf import conf
+
+from .mixins import ImageMixin
 
 image_filenames = []
 
@@ -59,6 +61,12 @@ class VideoFactory(ImageMixin):
             "images",
             "vanity-card.png",
         )
+        lead_audio = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "audio", "lead.mp3"
+        )
+        theme_audio = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "audio", "theme.wav"
+        )
 
         with tempfile.TemporaryDirectory() as directory:
             clips.append(VideoFileClip(lead_in))
@@ -74,9 +82,6 @@ class VideoFactory(ImageMixin):
                         font="Roboto-Bold",
                     )
                     clip = clip.set_pos("center").set_duration(3)
-                    # bg = ColorClip((2048, 1288), color=(2, 125, 126), duration=bird.duration)
-                    # clip = CompositeVideoClip([bg, bird.set_pos('center')])
-                    # clip.audio = concatenate_audioclips(audio_clips)
                     clips.append(clip)
                 elif block_type in ["h2", "p"]:
                     audio_filename = f"{directory}/{idx}.wav"
@@ -100,8 +105,18 @@ class VideoFactory(ImageMixin):
             clips.append(ImageClip(vanity_card).set_duration(2))
             clips.append(VideoFileClip(lead_out))
             clips.append(ColorClip((2048, 1288), color=(0, 0, 0)).set_duration(0.2))
-
             final = concatenate_videoclips(clips)
+
+            final_audio = [
+                AudioFileClip(lead_audio).set_start(0.3),
+                AudioFileClip(theme_audio)
+                .set_start(2)
+                .fx(volumex, 0.2)
+                .set_duration(final.audio.duration + 3)
+                .fx(audio_fadeout, 2),
+                final.audio,
+            ]
+            final.audio = CompositeAudioClip(final_audio)
             final.write_videofile(self.filename, fps=25, audio_codec="aac")
 
     def h1(self, content):
