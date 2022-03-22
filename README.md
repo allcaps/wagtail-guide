@@ -96,6 +96,9 @@ The `WAGTAIL_GUIDE_CHAPTERS` are called in order with `live_server` and `driver`
 
 Extend and/or customise the documentation generation. Add your callables to `WAGTAIL_GUIDE_CHAPTERS`.
 
+# Audio
+
+Audio by (Kamara)[https://www.kamara.nl/]
 
 # Big thanks to
 
