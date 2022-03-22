@@ -102,7 +102,7 @@ Extend and/or customise the documentation generation. Add your callables to `WAG
 
 # Audio
 
-Audio by (Kamara)[https://www.kamara.nl/]
+Audio by [Kamara](https://www.kamara.nl/)
 
 # Big thanks to
 
