@@ -87,12 +87,16 @@ Serve the docs:
 
 Wagtail guide comes with Markdown, reStructuredText and video support.
 
-The `WAGTAIL_GUIDE_CHAPTERS` are called in order with `live_server` and `driver` as arguments.
+The `WAGTAIL_GUIDE_CHAPTERS` are called in order with `live_server` and `driver` as arguments. Default:
 
     WAGTAIL_GUIDE_CHAPTERS = [
             "wagtail_guide.markdown.getting_started",
             "wagtail_guide.markdown.demo",
     ]
+
+Other chapters:
+
+* `wagtail_guide.video.getting_started`
 
 Extend and/or customise the documentation generation. Add your callables to `WAGTAIL_GUIDE_CHAPTERS`.
 

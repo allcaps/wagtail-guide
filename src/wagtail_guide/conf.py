@@ -8,9 +8,8 @@ class Settings:
     @property
     def WAGTAIL_GUIDE_CHAPTERS(self) -> Sequence[str]:
         default_chapters = [
-            # "wagtail_guide.markdown.getting_started",
-            # "wagtail_guide.markdown.demo",
-            "wagtail_guide.video.getting_started",
+            "wagtail_guide.markdown.getting_started",
+            "wagtail_guide.markdown.demo",
         ]
         return getattr(settings, "WAGTAIL_GUIDE_CHAPTERS", default_chapters)
 
