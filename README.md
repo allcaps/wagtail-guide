@@ -71,8 +71,15 @@ To convert markdown to documentation, I'd suggest using MkDocs. In your project 
 
     pip install mkdocs
     mkdocs new .
-    # Add pages to mkdocs.yml `nav` section.
-    # Ref: https://www.mkdocs.org/getting-started/#adding-pages
+
+Write to mkdocs.yml. Ref: https://www.mkdocs.org/getting-started/#adding-pages
+
+    site_name: Example.com User Guide
+    nav:
+        - Home: index.md
+
+Serve the docs:
+
     mkdocs serve
 
 
