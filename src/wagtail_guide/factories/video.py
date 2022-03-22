@@ -6,12 +6,14 @@ from moviepy.editor import (
     AudioClip,
     AudioFileClip,
     ColorClip,
+    TextClip,
     CompositeVideoClip,
     ImageClip,
     VideoFileClip,
     concatenate_audioclips,
     concatenate_videoclips,
 )
+
 from mutagen.wave import WAVE
 
 from .mixins import ImageMixin
@@ -21,7 +23,9 @@ image_filenames = []
 
 
 def synth(text, filename):
-    response = requests.get(conf.WAGTAIL_GUIDE_TEXT_TO_SPEECH_URL, params={"text": text})
+    response = requests.get(
+        conf.WAGTAIL_GUIDE_TEXT_TO_SPEECH_URL, params={"text": text}
+    )
     with open(filename, "wb") as fd:
         for chunk in response.iter_content(chunk_size=128):
             fd.write(chunk)
@@ -44,16 +48,37 @@ class VideoFactory(ImageMixin):
         audio_clips = []
         audio_duration = 0
 
+        lead_in = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "images", "in.mp4"
+        )
+        lead_out = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "images", "out.mp4"
+        )
+        vanity_card = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            "images",
+            "vanity-card.png",
+        )
+
         with tempfile.TemporaryDirectory() as directory:
+            clips.append(VideoFileClip(lead_in))
+            clips.append(ImageClip(vanity_card).set_duration(2))
             for idx, (block_type, content) in enumerate(self.blocks):
-                # TODO, add title card
-                # if block_type == "h1":
-                #     bird = VideoFileClip("guide/tests/images/wagtail_trimmed.mov")
-                #     bg = ColorClip((2048, 1288), color=(2, 125, 126), duration=bird.duration)
-                #     clip = CompositeVideoClip([bg, bird.set_pos('center')])
-                #     # clip.audio = concatenate_audioclips(audio_clips)
-                #     clips.append(clip)
-                if block_type in ["h1", "h2", "p"]:
+                if block_type == "h1":
+                    clip = TextClip(
+                        size=(2048, 1288),
+                        txt=content,
+                        color="white",
+                        bg_color="#000051",
+                        fontsize=144,
+                        font="Roboto-Bold",
+                    )
+                    clip = clip.set_pos("center").set_duration(3)
+                    # bg = ColorClip((2048, 1288), color=(2, 125, 126), duration=bird.duration)
+                    # clip = CompositeVideoClip([bg, bird.set_pos('center')])
+                    # clip.audio = concatenate_audioclips(audio_clips)
+                    clips.append(clip)
+                elif block_type in ["h2", "p"]:
                     audio_filename = f"{directory}/{idx}.wav"
                     synth(content, audio_filename)
                     audio_clips.append(AudioFileClip(audio_filename))
@@ -71,6 +96,10 @@ class VideoFactory(ImageMixin):
                     audio_duration = 0
                 else:
                     raise NotImplementedError(block_type)
+
+            clips.append(ImageClip(vanity_card).set_duration(2))
+            clips.append(VideoFileClip(lead_out))
+            clips.append(ColorClip((2048, 1288), color=(0, 0, 0)).set_duration(0.2))
 
             final = concatenate_videoclips(clips)
             final.write_videofile(self.filename, fps=25, audio_codec="aac")
