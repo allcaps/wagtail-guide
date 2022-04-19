@@ -65,7 +65,7 @@ Foreground mode (chromedriver required)
 
 Headless mode (Selenium Docker required)
 
-    SELENIUM_REMOTE_URL=YOUR_HOST_IP python manage.py buildguide --headless
+    SELENIUM_REMOTE_URL=YOUR_HOST_IP HEADLESS=1 python manage.py buildguide
 
 To convert markdown to documentation, I'd suggest using MkDocs. In your project root:
 
