@@ -1,6 +1,8 @@
 # Wagtail Guide
 
-A user guide for Wagtail powered sites.
+A user guide for Wagtail powered sites, generating screenshots and [video recordings](https://www.youtube.com/watch?v=E3-kFY6jPPY).
+
+> View the Wagtail Space US 2022 talk: [Wagtail Guide - Coen van der Kamp](https://www.youtube.com/watch?v=W0tL-5V5BWA)
 
 Wagtail guide uses Pytest + Selenium + Markdown + MKDocs. 
 
