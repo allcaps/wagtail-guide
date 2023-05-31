@@ -2,13 +2,12 @@ import os
 import tempfile
 
 import requests
-from moviepy.audio.fx.all import audio_fadeout, volumex
+from moviepy.audio.fx.all import audio_fadeout, volumex  # noqa
 from moviepy.editor import (
     AudioClip,
     AudioFileClip,
     ColorClip,
     CompositeAudioClip,
-    CompositeVideoClip,
     ImageClip,
     TextClip,
     VideoFileClip,

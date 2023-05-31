@@ -22,8 +22,8 @@ Chrome Driver on OSX (foreground mode):
 
 Move ChromeDriver out of quarantine:
 
-    xattr -d com.apple.quarantine /usr/local/bin/chromedriver
-    spctl --add --label 'Approved' /usr/local/bin/chromedriver
+    xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
+    spctl --add --label 'Approved' /opt/homebrew/bin/chromedriver
 
 If `chromedriver` isn't on your path, set `SELENIUM_CHROMEDRIVER_EXECUTABLE_PATH`.
 

@@ -46,7 +46,7 @@ def getting_started(live_server, driver):
 
         doc.h2("Dashboard")
         doc.p("This first page is called *the dashboard*. It shows a *summary*.")
-        doc.img("dashboard.png", driver.find_element(By.CLASS_NAME, "summary"))
+        doc.img("dashboard.png", driver.find_element(By.CLASS_NAME, "w-summary"))
         doc.transcribe()
 
         doc.h2("Sidebar")
@@ -88,6 +88,6 @@ def getting_started(live_server, driver):
         doc.img(
             "logout.png",
             driver.find_element(
-                By.XPATH, '//*[@id="wagtail-sidebar"]/div/div/div/div/ul/li[2]/a'
+                By.XPATH, '//*[@id="wagtail-sidebar"]/div/div/div[2]/ul/li[2]/form/button'
             ),
         )

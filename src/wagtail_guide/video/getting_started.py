@@ -37,7 +37,7 @@ def getting_started(live_server, driver):
         doc.img("admin.png")
 
         doc.p("This first page is called the dashboard – It shows a summary.")
-        doc.img("dashboard.png", driver.find_element(By.CLASS_NAME, "summary"))
+        doc.img("dashboard.png", driver.find_element(By.CLASS_NAME, "w-summary"))
 
         doc.p("The gray bar on the side is the sidebar.")
         doc.img("sidebar.png", driver.find_element(By.CLASS_NAME, "sidebar"))
@@ -61,4 +61,5 @@ def getting_started(live_server, driver):
         doc.img("account-settings.png", elm)
 
         doc.p("The log out option is in account settings.")
-        doc.img("logout.png", driver.find_element(By.XPATH, '//*[@id="wagtail-sidebar"]/div/div/div/div/ul/li[2]/a'))
+        elm = driver.find_element(By.XPATH, '//*[@id="wagtail-sidebar"]/div/div/div[2]/ul/li[2]/form/button')
+        doc.img("logout.png", elm)
